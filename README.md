@@ -1,7 +1,7 @@
 play-spring-hibernate-multitenancy
 ==================================
 
-Implementing multi-tenancy on play using Spring3/Hibernate4
+Trying out multi-tenancy on play using Spring3/Hibernate4 
 
 Reffered projects:
 
