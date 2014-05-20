@@ -12,6 +12,7 @@ import views.html.index;
 @org.springframework.stereotype.Controller
 public class Application {
 
+    @Autowired
     private MultitenantService multitenantService;
 
     public Result index() {

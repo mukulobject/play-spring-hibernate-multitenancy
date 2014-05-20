@@ -10,18 +10,19 @@ import java.util.List;
 @Service
 public class MultitenantService {
 
+    @Autowired
     private SessionFactory sessionFactory;
 
     public void save(Bar bar) {
-        sessionFactory.getCurrentSession().save(bar);
+        sessionFactory.openSession().save(bar);
     }
 
     public Bar getBar(String id) {
-        return (Bar) sessionFactory.getCurrentSession().get(Bar.class, id);
+        return (Bar) sessionFactory.openSession().get(Bar.class, id);
     }
 
     public List<Bar> getBars() {
-        return sessionFactory.getCurrentSession().createQuery("from BAR").list();
+        return sessionFactory.openSession().createQuery("from Bar").list();
     }
 
     public void setSessionFactory(SessionFactory sessionFactory) {
