@@ -1,4 +1,4 @@
-name := "play-java-spring"
+name := "play-java-spring-security"
 
 version := "1.0-SNAPSHOT"
 

@@ -1,31 +1,29 @@
 package services;
 
 import models.Bar;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
+import web.filter.impl.PlayHibernateSessionFilter;
 
 import java.util.List;
 
 @Service
 public class MultitenantService {
 
-    @Autowired
-    private SessionFactory sessionFactory;
-
     public void save(Bar bar) {
-        sessionFactory.openSession().save(bar);
+        getThreadLocalSessionFactory().save(bar);
     }
 
     public Bar getBar(String id) {
-        return (Bar) sessionFactory.openSession().get(Bar.class, id);
+
+        return (Bar) getThreadLocalSessionFactory().get(Bar.class, id);
     }
 
     public List<Bar> getBars() {
-        return sessionFactory.openSession().createQuery("from Bar").list();
+        return getThreadLocalSessionFactory().createQuery("from Bar").list();
     }
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    private Session getThreadLocalSessionFactory(){
+         return PlayHibernateSessionFilter.TENANT_THREAD_LOCAL.get().getSession();
     }
 }

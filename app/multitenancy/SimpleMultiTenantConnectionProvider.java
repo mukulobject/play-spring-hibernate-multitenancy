@@ -1,6 +1,7 @@
 package multitenancy;
 
 import org.hibernate.service.jdbc.connections.spi.AbstractDataSourceBasedMultiTenantConnectionProviderImpl;
+import play.Logger;
 
 import javax.sql.DataSource;
 import java.util.Map;
@@ -16,6 +17,7 @@ public class SimpleMultiTenantConnectionProvider extends AbstractDataSourceBased
 
     @Override
     protected DataSource selectDataSource(String tenantIdentifier) {
+        Logger.debug("#### Returning connection provider for tenant ==> " + tenantIdentifier);
         return dataSourceMap.get(tenantIdentifier);
     }
 

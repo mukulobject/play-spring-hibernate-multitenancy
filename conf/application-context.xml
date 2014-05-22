@@ -55,9 +55,6 @@
         <property name="autodetectDataSource" value="false"/>
     </bean>
 
-
-
-
     <util:map id="datasources">
         <entry key="tenant1" value-ref="dataSource1"/>
         <entry key="tenant2" value-ref="dataSource2"/>
@@ -112,5 +109,21 @@
         <aop:advisor pointcut-ref="serviceInvocation" advice-ref="txServiceDao"/>
     </aop:config>
 
+    <!-- #### Hibernate Filter #### -->
+    <bean id="filter" class="web.filter.impl.PlayFilterChain">
+        <property name="filtersMap">
+            <map>
+                <entry key="HIBERNATE_FILTER">
+                    <list>
+                        <ref bean="hibernateFilter"/>
+                    </list>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="hibernateFilter" class="web.filter.impl.PlayHibernateSessionFilter">
+        <property name="sessionFactory"  ref="sessionFactory"/>
+    </bean>
 
 </beans>
